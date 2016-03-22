@@ -22,7 +22,7 @@ public class Structure {
 
     private final int SIZE;
     private final int MAX_POINTS;
-    private int[][] field;
+    private final int[][] field;
     private int points = 0;
 
     int getCell(int i, int j) {
@@ -62,7 +62,7 @@ public class Structure {
      * Сдвигает все цифры вправо на 1 клетку, склеивая их при равенстве.
      */
     public void pushRight() {
-        for (int i = 0; i < SIZE - 1; i++) {
+        for (int i = 0; i < SIZE; i++) {
             for (int j = SIZE - 2; j >= 0; j--) {
                 if (field[i][j + 1] == 0) {
                     field[i][j + 1] = field[i][j];
@@ -77,7 +77,18 @@ public class Structure {
     }
 
     public void pushLeft() {
-
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 1; j < SIZE; j++) {
+                if (field[i][j - 1] == 0) {
+                    field[i][j - 1] = field[i][j];
+                    field[i][j] = 0;
+                } else if (field[i][j] == field[i][j - 1]) {
+                    field[i][j - 1] *= 2;
+                    field[i][j] = 0;
+                    points += field[i][j - 1];
+                }
+            }
+        }
     }
 
     public void pushDown() {
