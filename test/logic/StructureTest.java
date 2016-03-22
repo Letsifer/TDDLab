@@ -8,7 +8,7 @@ import static org.junit.Assert.*;
  * @author Евгений
  */
 public class StructureTest {
-    
+
     public StructureTest() {
     }
 
@@ -64,7 +64,7 @@ public class StructureTest {
         sample.setValue(1, 1, 4);
         sample.setValue(2, 1, 2);
         sample.setValue(3, 2, 16);
-        
+
         System.err.println(instance);
         System.err.println(sample);
         for (int i = 0; i < size; i++) {
@@ -79,10 +79,33 @@ public class StructureTest {
      */
     @Test
     public void testPushDown() {
-        System.out.println("pushDown");
-        Structure instance = null;
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        System.err.println("pushDown");
+        final int size = 4;
+        Structure instance = new Structure(size);
+        instance.setValue(2, 0, 2);
+        instance.setValue(3, 0, 2);
+        instance.setValue(1, 1, 4);
+        instance.setValue(0, 2, 8);
+        instance.setValue(1, 2, 8);
+        instance.setValue(2, 3, 16);
+        instance.setValue(3, 3, 32);
+        instance.pushDown();
+
+        Structure sample = new Structure(size);
+        sample.setValue(3, 0, 4);
+        sample.setValue(2, 1, 4);
+        sample.setValue(1, 2, 8);
+        sample.setValue(2, 2, 8);
+        sample.setValue(2, 3, 16);
+        sample.setValue(3, 3, 32);
+
+        System.err.println(instance);
+        System.err.println(sample);
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                assertTrue(instance.getCell(i, j) == sample.getCell(i, j));
+            }
+        }
     }
 
     /**
@@ -95,5 +118,5 @@ public class StructureTest {
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
-    
+
 }

@@ -76,6 +76,9 @@ public class Structure {
         }
     }
 
+    /**
+     * Сдвигает все цифры влево на 1 клетку, склеивая их при равенстве.
+     */
     public void pushLeft() {
         for (int i = 0; i < SIZE; i++) {
             for (int j = 1; j < SIZE; j++) {
@@ -91,8 +94,22 @@ public class Structure {
         }
     }
 
+    /**
+     * Сдвигает все цифры вниз на 1 клетку, склеивая их при равенстве.
+     */
     public void pushDown() {
-
+        for (int i = SIZE - 2; i >= 0; i--) {
+            for (int j = 0; j < SIZE; j++) {
+                if (field[i + 1][j] == 0) {
+                    field[i + 1][j] = field[i][j];
+                    field[i][j] = 0;
+                } else if (field[i][j] == field[i + 1][j]) {
+                    field[i + 1][j] *= 2;
+                    field[i][j] = 0;
+                    points += field[i + 1][j];
+                }
+            }
+        }
     }
 
     public void pushUp() {
