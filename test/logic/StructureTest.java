@@ -113,10 +113,34 @@ public class StructureTest {
      */
     @Test
     public void testPushUp() {
-        System.out.println("pushUp");
-        Structure instance = null;
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        System.err.println("pushUp");
+
+        final int size = 4;
+        Structure instance = new Structure(size);
+        instance.setValue(0, 0, 16);
+        instance.setValue(1, 0, 16);
+        instance.setValue(3, 1, 4);
+        instance.setValue(1, 2, 8);
+        instance.setValue(2, 2, 8);
+        instance.setValue(0, 3, 32);
+        instance.setValue(1, 3, 16);
+        instance.pushUp();
+
+        Structure sample = new Structure(size);
+        sample.setValue(0, 0, 32);
+        sample.setValue(2, 1, 4);
+        sample.setValue(0, 2, 8);
+        sample.setValue(1, 2, 8);
+        sample.setValue(0, 3, 32);
+        sample.setValue(1, 3, 16);
+
+        System.err.println(instance);
+        System.err.println(sample);
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                assertTrue(instance.getCell(i, j) == sample.getCell(i, j));
+            }
+        }
     }
 
 }

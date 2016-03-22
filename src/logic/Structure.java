@@ -113,7 +113,18 @@ public class Structure {
     }
 
     public void pushUp() {
-
+        for (int i = 1; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
+                if (field[i - 1][j] == 0) {
+                    field[i - 1][j] = field[i][j];
+                    field[i][j] = 0;
+                } else if (field[i][j] == field[i - 1][j]) {
+                    field[i - 1][j] *= 2;
+                    field[i][j] = 0;
+                    points += field[i - 1][j];
+                }
+            }
+        }
     }
 
 }
