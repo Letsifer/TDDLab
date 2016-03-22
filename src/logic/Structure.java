@@ -1,5 +1,7 @@
 package logic;
 
+import java.util.Arrays;
+
 /**
  *
  * @author Евгений
@@ -126,5 +128,38 @@ public class Structure {
             }
         }
     }
+    
+    public MoveResults checkForFinish() {
+        if (checkForWin()) {
+            return MoveResults.WIN;
+        }
+        if (checkForLose()) {
+            return MoveResults.LOSE;
+        }
+        return MoveResults.CONTINUE;
+    }
 
+    private boolean checkForLose() {
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
+                if (field[i][j] == 0 || 
+                    i < SIZE - 1 && field[i][j] == field[i + 1][j] || 
+                    j < SIZE - 1 && field[i][j] == field[i][j + 1]) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    
+    private boolean checkForWin() {
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
+                if (field[i][j] == MAX_POINTS) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }
