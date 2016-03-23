@@ -10,11 +10,18 @@ import logic.Structure;
  */
 public class Game {
     private Structure field;
-    private Scanner scanner;
+    private Scanner scanner = new Scanner(System.in);
     
     public Game() {
-        field = new Structure(4, 32);
-        scanner = new Scanner(System.in);
+        field = new Structure(4, 64);
+    }
+    
+    public Game(int size) {
+        field = new Structure(size, 64);
+    }
+    
+    public void setToField(int i, int j, int value) {
+        field.setValue(i, j, value);
     }
     
     public void process() {

@@ -42,7 +42,7 @@ public class Structure {
         return field[i][j];
     }
     
-    void setValue(int i, int j, int value) {
+    public void setValue(int i, int j, int value) {
         field[i][j] = value;
     }
     
@@ -80,7 +80,7 @@ public class Structure {
     /**
      * Сдвигает все цифры вправо на 1 клетку, склеивая их при равенстве.
      */
-    public void pushRight() {
+    public MoveResults pushRight() {
         for (int i = 0; i < SIZE; i++) {
             for (int j = SIZE - 2; j >= 0; j--) {
                 if (field[i][j + 1] == 0) {
@@ -93,12 +93,13 @@ public class Structure {
                 }
             }
         }
+        return checkForFinish();
     }
 
     /**
      * Сдвигает все цифры влево на 1 клетку, склеивая их при равенстве.
      */
-    public void pushLeft() {
+    public MoveResults pushLeft() {
         for (int i = 0; i < SIZE; i++) {
             for (int j = 1; j < SIZE; j++) {
                 if (field[i][j - 1] == 0) {
@@ -111,12 +112,13 @@ public class Structure {
                 }
             }
         }
+        return checkForFinish();
     }
 
     /**
      * Сдвигает все цифры вниз на 1 клетку, склеивая их при равенстве.
      */
-    public void pushDown() {
+    public MoveResults pushDown() {
         for (int i = SIZE - 2; i >= 0; i--) {
             for (int j = 0; j < SIZE; j++) {
                 if (field[i + 1][j] == 0) {
@@ -129,9 +131,10 @@ public class Structure {
                 }
             }
         }
+        return checkForFinish();
     }
 
-    public void pushUp() {
+    public MoveResults pushUp() {
         for (int i = 1; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
                 if (field[i - 1][j] == 0) {
@@ -144,9 +147,11 @@ public class Structure {
                 }
             }
         }
+        return checkForFinish();
     }
     
     public MoveResults checkForFinish() {
+        generateNewNumbers();
         if (checkForWin()) {
             return MoveResults.WIN;
         }
