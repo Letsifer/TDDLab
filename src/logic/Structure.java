@@ -1,5 +1,11 @@
 package logic;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
+
 
 /**
  *
@@ -9,22 +15,28 @@ public class Structure {
 
     @Override
     public String toString() {
-        StringBuilder builder = new StringBuilder("Structure with size = ");
-        builder.append(SIZE);
-        builder.append('\n');
+        StringBuilder builder = new StringBuilder("Structure with size = ").append(SIZE).append('\n');
         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
                 builder.append(field[i][j]).append(' ');
             }
             builder.append('\n');
         }
+        builder.append("Текущее количество очков: ").append(Integer.toString(points)).append('\n');
         return builder.toString();
     }
 
     private final int SIZE;
     private final int MAX_POINTS;
+    private final static int GENERATED_CELLS = 2;
+    
     private final int[][] field;
     
+    int getCheckSum() {
+        return Arrays.stream(field)
+                .flatMapToInt(line -> Arrays.stream(line))
+                .sum();
+    }
     
     int getCell(int i, int j) {
         return field[i][j];
@@ -166,5 +178,34 @@ public class Structure {
             }
         }
         return false;
+    }
+    
+    private final List<Integer> freeCellsIndexes = new ArrayList<>();
+    public void generateNewNumbers() {
+        freeCellsIndexes.clear();
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
+                if (field[i][j] == 0) {
+                    freeCellsIndexes.add(i * SIZE + j);
+                }
+            }
+        }
+        Collections.shuffle(freeCellsIndexes);
+        Random random = new Random();
+        
+        for (int i = 0; i < GENERATED_CELLS; i++) {
+            if (freeCellsIndexes.isEmpty()) {
+                break;
+            }
+            int indexInList = random.nextInt(freeCellsIndexes.size());
+            int indexField = freeCellsIndexes.get(indexInList);
+            freeCellsIndexes.remove(indexInList);
+            setValueToCell(indexField);            
+        }        
+    }
+    
+    private void setValueToCell(int index) {
+        int row = index / SIZE, column = index % SIZE;
+        field[row][column] = 2;
     }
 }

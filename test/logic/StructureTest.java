@@ -220,4 +220,15 @@ public class StructureTest {
         assertTrue(answer == MoveResults.CONTINUE);
     }
     
+    @Test
+    public void testGeneration() {
+        System.err.println("from generation");
+        final  int size = 4;
+        Structure instance = new Structure(size);
+        instance.generateNewNumbers();
+        int sum = instance.getCheckSum();
+        System.err.println(instance);
+        assertTrue(sum == 4);
+    }
+    
 }
