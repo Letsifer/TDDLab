@@ -33,8 +33,8 @@ public class StructureTest {
         sample.setValue(0, 3, 4);
         sample.setValue(1, 3, 4);
         sample.setValue(3, 3, 2);
-        System.err.println(instance);
-        System.err.println(sample);
+//        System.err.println(instance);
+//        System.err.println(sample);
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 assertTrue(instance.getCell(i, j) == sample.getCell(i, j));
@@ -65,8 +65,8 @@ public class StructureTest {
         sample.setValue(2, 1, 2);
         sample.setValue(3, 2, 16);
 
-        System.err.println(instance);
-        System.err.println(sample);
+//        System.err.println(instance);
+//        System.err.println(sample);
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 assertTrue(instance.getCell(i, j) == sample.getCell(i, j));
@@ -99,8 +99,8 @@ public class StructureTest {
         sample.setValue(2, 3, 16);
         sample.setValue(3, 3, 32);
 
-        System.err.println(instance);
-        System.err.println(sample);
+//        System.err.println(instance);
+//        System.err.println(sample);
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 assertTrue(instance.getCell(i, j) == sample.getCell(i, j));
@@ -134,13 +134,90 @@ public class StructureTest {
         sample.setValue(0, 3, 32);
         sample.setValue(1, 3, 16);
 
-        System.err.println(instance);
-        System.err.println(sample);
+//        System.err.println(instance);
+//        System.err.println(sample);
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 assertTrue(instance.getCell(i, j) == sample.getCell(i, j));
             }
         }
     }
-
+    
+    @Test
+    public void testForWin() {
+        System.err.println("from test win");
+        final int size = 3;
+        Structure instance = new Structure(size);
+        for (int i = 0, value = 2; i < size; i++) {
+            for (int j = 0; j < size; j++, value *= 2) {
+                instance.setValue(i, j, value);
+            }
+        }
+//        System.err.println(instance);
+        assertTrue(instance.checkForFinish() == MoveResults.WIN);
+    }
+    
+    @Test
+    public void testForLose() {
+        System.err.println("from test lose");
+        final int size = 3;
+        Structure instance = new Structure(size);
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                switch(i + j) {
+                    case 1: case 3: instance.setValue(i, j, 4); break;
+                    case 0: instance.setValue(i, j, 16); break;
+                    case 2: instance.setValue(i, j, 8); break;
+                    default: instance.setValue(i, j, 2); break;
+                        
+                }
+            }
+        }
+        MoveResults answer = instance.checkForFinish();
+        System.err.println(answer);
+        assertTrue(answer == MoveResults.LOSE);
+    }
+    
+    @Test
+    public void testForContinueWithMerge() {
+        System.err.println("from test merge continue");
+        final int size = 3;
+        Structure instance = new Structure(size);
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                switch(i + j) {
+                    case 1: case 3: instance.setValue(i, j, 4); break;
+                    case 0: instance.setValue(i, j, 4); break;
+                    case 2: instance.setValue(i, j, 8); break;
+                    default: instance.setValue(i, j, 2); break;
+                        
+                }
+            }
+        }
+        MoveResults answer = instance.checkForFinish();
+        System.err.println(answer);
+        assertTrue(answer == MoveResults.CONTINUE);
+    }
+    
+    @Test
+    public void testForContinueWithoutMerge() {
+        System.err.println("from test push continue");
+        final int size = 3;
+        Structure instance = new Structure(size);
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                switch(i + j) {
+                    case 1: case 3: instance.setValue(i, j, 4); break;
+                    case 0: instance.setValue(i, j, 16); break;
+                    case 2: instance.setValue(i, j, 8); break;
+                    default: instance.setValue(i, j, 0); break;
+                        
+                }
+            }
+        }
+        MoveResults answer = instance.checkForFinish();
+        System.err.println(answer);
+        assertTrue(answer == MoveResults.CONTINUE);
+    }
+    
 }

@@ -1,6 +1,5 @@
 package logic;
 
-import java.util.Arrays;
 
 /**
  *
@@ -25,8 +24,8 @@ public class Structure {
     private final int SIZE;
     private final int MAX_POINTS;
     private final int[][] field;
-    private int points = 0;
-
+    
+    
     int getCell(int i, int j) {
         return field[i][j];
     }
@@ -35,6 +34,12 @@ public class Structure {
         field[i][j] = value;
     }
     
+    private int points = 0;
+
+    public int getPoints() {
+        return points;
+    }
+
     /**
      * Создает экземпляр структуры произольного размера и количество очков =
      * 256.
@@ -145,11 +150,11 @@ public class Structure {
                 if (field[i][j] == 0 || 
                     i < SIZE - 1 && field[i][j] == field[i + 1][j] || 
                     j < SIZE - 1 && field[i][j] == field[i][j + 1]) {
-                    return true;
+                    return false;
                 }
             }
         }
-        return false;
+        return true;
     }
     
     private boolean checkForWin() {
