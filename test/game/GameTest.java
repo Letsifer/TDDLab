@@ -1,15 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package game;
 
 import logic.MoveResults;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -31,8 +22,8 @@ public class GameTest {
         Game instance = new Game(3);
         instance.setToField(0, 1, 4);
         instance.setToField(1, 2, 8);
-        instance.setToField(2, 1, 32);
-        instance.setToField(2, 2, 32);
+        instance.setToField(2, 1, 64);
+        instance.setToField(2, 2, 64);
         MoveResults expResult = MoveResults.WIN;
         MoveResults result = instance.moveRight();
         assertEquals(expResult, result);
@@ -85,7 +76,7 @@ public class GameTest {
         Game instance = new Game(3);
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                instance.setToField(i, j, 32);
+                instance.setToField(i, j, 64);
             }
         }
         instance.setToField(0, 0, 2);

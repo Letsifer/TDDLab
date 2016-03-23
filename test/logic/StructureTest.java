@@ -25,14 +25,19 @@ public class StructureTest {
         instance.setValue(0, 2, 4);
         instance.setValue(1, 2, 2);
         instance.setValue(1, 3, 2);
-        instance.setValue(3, 2, 2);
-        instance.pushRight();
+        instance.setValue(2, 0, 8);
+        instance.setValue(2, 1, 16);
+        instance.setValue(3, 1, 8);
+        instance.setValue(3, 2, 8);
+        instance.setValue(3, 3, 16);
+        instance.pushRight(true);
         Structure sample = new Structure(size);
-        sample.setValue(0, 1, 4);
         sample.setValue(0, 2, 4);
-        sample.setValue(0, 3, 4);
+        sample.setValue(0, 3, 8);
         sample.setValue(1, 3, 4);
-        sample.setValue(3, 3, 2);
+        sample.setValue(2, 2, 8);
+        sample.setValue(2, 3, 16);
+        sample.setValue(3, 3, 32);
 //        System.err.println(instance);
 //        System.err.println(sample);
         for (int i = 0; i < size; i++) {
@@ -50,20 +55,28 @@ public class StructureTest {
         System.err.println("pushLeft");
         final int size = 4;
         Structure instance = new Structure(size);
-        instance.setValue(0, 0, 8);
-        instance.setValue(0, 1, 8);
+        instance.setValue(0, 0, 2);
+        instance.setValue(0, 1, 2);
+        instance.setValue(0, 2, 2);
+        instance.setValue(0, 3, 2);
         instance.setValue(1, 1, 4);
-        instance.setValue(1, 2, 4);
-        instance.setValue(2, 2, 2);
-        instance.setValue(3, 3, 16);
+        instance.setValue(1, 2, 8);
+        instance.setValue(1, 3, 4);
+        instance.setValue(2, 0, 16);
+        instance.setValue(2, 2, 16);
+        instance.setValue(3, 0, 4);
+        instance.setValue(3, 1, 8);
+        instance.setValue(3, 3, 8);
 
-        instance.pushLeft();
+        instance.pushLeft(true);
         Structure sample = new Structure(size);
-        sample.setValue(0, 0, 16);
+        sample.setValue(0, 0, 8);
         sample.setValue(1, 0, 4);
-        sample.setValue(1, 1, 4);
-        sample.setValue(2, 1, 2);
-        sample.setValue(3, 2, 16);
+        sample.setValue(1, 1, 8);
+        sample.setValue(1, 2, 4);
+        sample.setValue(2, 0, 32);
+        sample.setValue(3, 0, 4);
+        sample.setValue(3, 1, 16);
 
 //        System.err.println(instance);
 //        System.err.println(sample);
@@ -82,25 +95,27 @@ public class StructureTest {
         System.err.println("pushDown");
         final int size = 4;
         Structure instance = new Structure(size);
-        instance.setValue(2, 0, 2);
-        instance.setValue(3, 0, 2);
-        instance.setValue(1, 1, 4);
+        instance.setValue(2, 0, 32);
+        instance.setValue(3, 0, 16);
+        instance.setValue(1, 1, 32);
+        instance.setValue(2, 1, 16);
         instance.setValue(0, 2, 8);
         instance.setValue(1, 2, 8);
-        instance.setValue(2, 3, 16);
-        instance.setValue(3, 3, 32);
-        instance.pushDown();
+        instance.setValue(0, 3, 2);
+        instance.setValue(2, 3, 2);
+        instance.setValue(3, 3, 4);
+        instance.pushDown(true);
 
         Structure sample = new Structure(size);
-        sample.setValue(3, 0, 4);
-        sample.setValue(2, 1, 4);
-        sample.setValue(1, 2, 8);
-        sample.setValue(2, 2, 8);
-        sample.setValue(2, 3, 16);
-        sample.setValue(3, 3, 32);
+        sample.setValue(2, 0, 32);
+        sample.setValue(3, 0, 16);
+        sample.setValue(2, 1, 32);
+        sample.setValue(3, 1, 16);
+        sample.setValue(3, 2, 16);
+        sample.setValue(3, 3, 8);
 
-//        System.err.println(instance);
-//        System.err.println(sample);
+        System.err.println(instance);
+        System.err.println(sample);
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 assertTrue(instance.getCell(i, j) == sample.getCell(i, j));
@@ -117,25 +132,28 @@ public class StructureTest {
 
         final int size = 4;
         Structure instance = new Structure(size);
-        instance.setValue(0, 0, 16);
-        instance.setValue(1, 0, 16);
-        instance.setValue(3, 1, 4);
+        instance.setValue(1, 0, 2);
+        instance.setValue(2, 0, 4);
+        instance.setValue(0, 1, 4);
+        instance.setValue(1, 1, 4);
+        instance.setValue(0, 2, 8);
         instance.setValue(1, 2, 8);
-        instance.setValue(2, 2, 8);
-        instance.setValue(0, 3, 32);
-        instance.setValue(1, 3, 16);
-        instance.pushUp();
+        instance.setValue(2, 2, 16);
+        instance.setValue(3, 2, 32);
+        instance.setValue(0, 3, 4);
+        instance.setValue(1, 3, 4);
+        instance.setValue(2, 3, 8);
+        instance.pushUp(true);
 
         Structure sample = new Structure(size);
-        sample.setValue(0, 0, 32);
-        sample.setValue(2, 1, 4);
-        sample.setValue(0, 2, 8);
-        sample.setValue(1, 2, 8);
-        sample.setValue(0, 3, 32);
-        sample.setValue(1, 3, 16);
+        sample.setValue(0, 0, 2);
+        sample.setValue(1, 0, 4);
+        sample.setValue(0, 1, 8);
+        sample.setValue(0, 2, 64);
+        sample.setValue(0, 3, 16);
 
-//        System.err.println(instance);
-//        System.err.println(sample);
+        System.err.println(instance);
+        System.err.println(sample);
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 assertTrue(instance.getCell(i, j) == sample.getCell(i, j));
@@ -154,7 +172,7 @@ public class StructureTest {
             }
         }
 //        System.err.println(instance);
-        assertTrue(instance.checkForFinish() == MoveResults.WIN);
+        assertTrue(instance.checkForFinish(true) == MoveResults.WIN);
     }
     
     @Test
@@ -173,7 +191,7 @@ public class StructureTest {
                 }
             }
         }
-        MoveResults answer = instance.checkForFinish();
+        MoveResults answer = instance.checkForFinish(true);
         System.err.println(answer);
         assertTrue(answer == MoveResults.LOSE);
     }
@@ -194,7 +212,7 @@ public class StructureTest {
                 }
             }
         }
-        MoveResults answer = instance.checkForFinish();
+        MoveResults answer = instance.checkForFinish(true);
         System.err.println(answer);
         assertTrue(answer == MoveResults.CONTINUE);
     }
@@ -215,20 +233,9 @@ public class StructureTest {
                 }
             }
         }
-        MoveResults answer = instance.checkForFinish();
+        MoveResults answer = instance.checkForFinish(true);
         System.err.println(answer);
         assertTrue(answer == MoveResults.CONTINUE);
-    }
-    
-    @Test
-    public void testGeneration() {
-        System.err.println("from generation");
-        final  int size = 4;
-        Structure instance = new Structure(size);
-        instance.generateNewNumbers();
-        int sum = instance.getCheckSum();
-        System.err.println(instance);
-        assertTrue(sum == 4);
     }
     
 }

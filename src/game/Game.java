@@ -13,11 +13,11 @@ public class Game {
     private Scanner scanner = new Scanner(System.in);
     
     public Game() {
-        field = new Structure(4, 64);
+        field = new Structure(4, 128);
     }
     
     public Game(int size) {
-        field = new Structure(size, 64);
+        field = new Structure(size, 128);
     }
     
     public void setToField(int i, int j, int value) {
@@ -25,24 +25,24 @@ public class Game {
     }
     
     public void process() {
-        field.generateNewNumbers();
+        field.generateNewNumbers(false);
         System.out.println(field);
-        while(true) {
-            int choice = scanner.nextInt();
-            MoveResults result = MoveResults.CONTINUE;
+        MoveResults result = MoveResults.CONTINUE;
+        while(result == MoveResults.CONTINUE) {
+            int choice = scanner.nextInt();            
             switch(choice) {
                 case 0: result = moveUp(); break;
                 case 1: result = moveRight(); break;
                 case 2: result = moveDown(); break;
                 case 3: result = moveLeft(); break;
-                case -1: result = MoveResults.WIN; break;
+                case -1: return;
                 default: System.out.println("Вы нажали не ту клавишу");
             }
-            switch(result) {
-                case WIN: System.out.println("VICTORY!"); return;
-                case LOSE: System.out.println("lose ;C"); return;
-                default: break;
-            }
+        }
+        if (result == MoveResults.WIN) {
+            System.out.println("VICTORY!");
+        } else {
+            System.out.println("lose ;C");
         }
     }
     
@@ -51,31 +51,31 @@ public class Game {
     }
     
     public MoveResults moveRight() {
-        MoveResults result = field.pushRight();
+        MoveResults result = field.pushRight(false);
         afterStep();
         return result;
     }
     
     public MoveResults moveLeft() {
-        MoveResults result = field.pushLeft();
+        MoveResults result = field.pushLeft(false);
         afterStep();
         return result;
     }
     
     public MoveResults moveDown() {
-        MoveResults result = field.pushDown();
+        MoveResults result = field.pushDown(false);
         afterStep();
         return result;
     }
     
     public MoveResults moveUp() {
-        MoveResults result = field.pushUp();
+        MoveResults result = field.pushUp(false);
         afterStep();
         return result;
     }
     
     private void afterStep() {
-        System.out.flush();
+        
         System.out.println(field);
     }
     
