@@ -37,7 +37,7 @@ public class Structure {
                 .sum();
     }
 
-    int getCell(int i, int j) {
+    public int getCell(int i, int j) {
         return field[i][j];
     }
 
@@ -61,6 +61,7 @@ public class Structure {
         this.SIZE = size;
         this.MAX_POINTS = 512;
         field = new int[size][size];
+        generateNewNumbers(false);
     }
 
     /**
@@ -74,6 +75,7 @@ public class Structure {
         this.SIZE = size;
         this.MAX_POINTS = maxPoints;
         field = new int[size][size];
+        generateNewNumbers(false);
     }
 
     private int action(int i, int j, int newI, int newJ) {
